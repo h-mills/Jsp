@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapMapper">
+	<select id="getGpsList" parameterType="Map" resultType="Map">
+				select address, address_n, lat, lng, idx, gps, device_imei, iqr_condition 
+				from(
+					select address, address_n, lat, lng, idx, gps, device_imei, iqr_condition,
+					 (6371 * acos(cos(radians(#{center_lat})) 
+					 * cos(radians( lat )) * cos( radians( lng ) 
+					 - radians(#{center_lng}) ) 
+					 + sin( radians(#{center_lat}) ) * sin( radians( lat ) ) ) ) distance
+					from (
+						select substring_index(gps, ';', 1) lat, substring_index(gps, ';', -1) lng , address, address_n, iqr_condition, idx, gps, device_imei
+						from iqr_det_info 
+						where gps is not null 
+				        and det_time BETWEEN DATE_ADD(NOW(),INTERVAL - 3 MONTH ) AND NOW()
+				        and iqr_condition != 1
+				        <if test="!uniqno.equals('')">
+				        	and device_imei = #{uniqno}
+				        </if>
+					) t
+				) f
+				where distance <![CDATA[<=]]> #{size}
+                group by idx,gps,device_imei
+                ORDER BY distance
+
+	</select>
+	<select id="getGpsSquareList" parameterType="Map" resultType="Map">
+		select substring_index(gps, ';', 1) lat, substring_index(gps, ';', -1) lng, address, iqr_condition
+		from iqr_det_info 
+		where (gps is not null 
+			and
+		    (
+				(#{auth} = 1 and iqr_condition=0)
+				or
+				(#{auth} = 0 and iqr_condition>0)
+		    )
+		    and (substring_index(gps, ';', 1) between #{brlat} and #{tllat})
+		    and (substring_index(gps, ';', -1) between #{tllng} and #{brlng})
+		    and (det_time BETWEEN DATE_ADD(NOW(),INTERVAL - 1 MONTH ) AND NOW()))
+		group by idx,gps,device_imei;
+	</select>
+	<select id="getGpsMySquareList" parameterType="Map" resultType="Map">
+		select substring_index(gps, ';', 1) lat, substring_index(gps, ';', -1) lng, address, iqr_condition
+		from iqr_det_info 
+		where (gps is not null 
+			and
+		    (
+				(#{auth} = 1 and iqr_condition=0)
+				or
+				(#{auth} = 0 and iqr_condition>0)
+		    )
+		    and (substring_index(gps, ';', 1) between #{brlat} and #{tllat})
+		    and (substring_index(gps, ';', -1) between #{tllng} and #{brlng})
+		    and (det_time BETWEEN DATE_ADD(CURDATE(),INTERVAL -3 MONTH ) AND CURDATE()))
+		    and (device_imei = #{uniqno})
+		group by idx,gps,device_imei;
+	</select>
+	<select id="getWorldInfo" resultType="Map" parameterType="Map">
+		SELECT no
+			 , gps
+			 , iqr_condition
+			 , count
+		  FROM (
+				SELECT no
+					 , gps
+					 , iqr_condition
+					 <choose>
+					 	<when test="zoom gte 1 and zoom lte 5">
+					 , COUNT(no) AS count
+					 , TRUNCATE(substring_index(gps, ';', 1), 2) lat
+					 , TRUNCATE(substring_index(gps, ';', -1), 2) lng
+					 	</when>
+					 	<otherwise>
+					 , 1 AS count
+					 , substring_index(gps, ';', 1) lat
+					 , substring_index(gps, ';', -1) lng
+					 	</otherwise>
+					 </choose>
+				  FROM iqr_det_info
+				 WHERE address_n != '없음'
+				<choose>
+					<when test="period == 0">
+				   AND det_date >= DATE_ADD(CURDATE(), INTERVAL -1 DAY)
+					</when>
+					<when test="period == 2">
+				   AND det_date >= DATE_ADD(CURDATE(), INTERVAL -1 MONTH)
+					</when>
+					<when test="period == 3">
+				   AND det_date >= DATE_ADD(CURDATE(), INTERVAL -2 MONTH)
+					</when>
+					<when test="period == 4">
+				   AND det_date >= DATE_ADD(CURDATE(), INTERVAL -3 MONTH)
+					</when>
+					<otherwise>
+				   AND det_date >= DATE_ADD(CURDATE(), INTERVAL -1 WEEK)
+					</otherwise>
+				</choose>
+				<if test="zoom gte 1 and zoom lte 5">
+			  GROUP BY lat, lng
+				</if>
+			   ) A
+		 WHERE lat <![CDATA[<=]]> ${north} 
+		   AND lat <![CDATA[>=]]> ${south}
+		   AND lng <![CDATA[>=]]> ${west}
+		   AND lng <![CDATA[<=]]> ${east}
+		<!-- SELECT no
+			 , gps
+			 , iqr_condition
+		  FROM iqr_det_info
+		 WHERE 1=1
+		   AND address_n != '없음'
+       	<if test="period == 0">AND det_date >= DATE_ADD(CURDATE(), INTERVAL -1 DAY)</if>
+       	<if test="period == 1">AND det_date >= DATE_ADD(CURDATE(), INTERVAL -1 WEEK)</if>
+       	<if test="period == 2">AND det_date >= DATE_ADD(CURDATE(), INTERVAL -1 MONTH)</if>
+       	<if test="period == 3">AND det_date >= DATE_ADD(CURDATE(), INTERVAL -2 MONTH)</if>
+       	<if test="period == 4">AND det_date >= DATE_ADD(CURDATE(), INTERVAL -3 MONTH)</if> -->
+	</select>
+	<select id="getAddress" resultType="HashMap" parameterType="HashMap">
+		SELECT MAP.country_en AS address_n
+			 , DET.address_a
+			 , REPLACE(DET.address, DET.address_n, MAP.country_en) address
+		  FROM iqr_det_info DET
+	 LEFT JOIN country_info_mapping MAP
+			ON MAP.country_ko = address_n
+		 WHERE DET.no = #{no}
+	</select>
+	
+</mapper>

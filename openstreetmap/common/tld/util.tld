@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+  version="2.0">    
+  <description>JSTL 1.1 functions library</description>
+  <display-name>JSTL functions</display-name>
+  <tlib-version>1.1</tlib-version>
+  <short-name>u</short-name>
+ 
+  <function>
+    <description>make number price comma</description>
+    <name>makeNumberPriceComma</name>
+    <function-class>crawler.mobile.common.util.StringUtil</function-class>
+    <function-signature>String makeNumberPriceComma(java.lang.String)</function-signature>
+    <example>
+ 
+     ${ u:makeNumberPriceComma('1000') }
+    </example>  
+  </function>
+ 
+  <function>
+    <description>make contents name type</description>
+    <name>makeContentsNameType</name>
+    <function-class>crawler.mobile.common.util.StringUtil</function-class>
+    <function-signature>String makeContentsNameType(java.lang.String)</function-signature>
+    <example>
+ 
+     ${ u:makeContentsNameType('0100') }
+    </example>  
+  </function>
+
+  <function>
+    <description>make Portal Site Image</description>
+    <name>makePortalSiteImage</name>
+    <function-class>crawler.mobile.common.util.StringUtil</function-class>
+    <function-signature>String makePortalSiteImage(java.lang.String)</function-signature>
+    <example>
+ 
+     ${ u:makePortalSiteImage('D') }
+    </example>  
+  </function> 
+  
+  <function>
+    <description>make replace Day</description>
+    <name>makeReplaceDay</name>
+    <function-class>crawler.mobile.common.util.StringUtil</function-class>
+    <function-signature>String makeReplaceDay(java.lang.String)</function-signature>
+    <example>
+ 
+     ${ u:makeReplaceDay('2012-10-25 17:11:39.0') }
+    </example>  
+  </function>
+
+
+  <function>
+    <description>특정 문자열 문자 변환</description>
+    <name>makeReplaceStr</name>
+    <function-class>crawler.mobile.common.util.StringUtil</function-class>
+    <function-signature>String makeReplaceStr(java.lang.String, java.lang.String, java.lang.String)</function-signature>
+    <example>
+ 
+     ${ u:makeReplaceStr('2012-10-25', '-', '.') }
+    </example>  
+  </function>
+  
+ <function>
+    <description>make replace token</description>
+    <name>makeReplaceToken</name>
+    <function-class>crawler.mobile.common.util.StringUtil</function-class>
+    <function-signature>String makeReplaceToken(java.lang.String)</function-signature>
+    <example>
+ 
+     ${ u:makeReplaceToken('싸이|강남스타일') }
+    </example>  
+  </function>
+  
+ <function> 
+    <description>make comma removal</description>
+    <name>makeCommaRemoval</name>
+    <function-class>crawler.mobile.common.util.StringUtil</function-class>
+    <function-signature>String makeCommaRemoval(java.lang.String)</function-signature>
+    <example>
+ 
+     ${ u:makeCommaRemoval('1,000') }
+    </example>  
+  </function>  
+  
+  <function>
+    <description>make String length format</description>
+    <name>makeStringLengthFormat</name>
+    <function-class>crawler.mobile.common.util.StringUtil</function-class>
+    <function-signature>String makeStringLengthFormat(java.lang.String)</function-signature>
+    <example>
+ 
+     ${ u:makeStringLengthFormat('무궁화꽃이피었습니다') }
+    </example>  
+  </function>  
+  
+  
+  <function>
+    <description>make replace day schedule </description>
+    <name>makeReplaceDaySchedule</name>
+    <function-class>crawler.mobile.common.util.StringUtil</function-class>
+    <function-signature>String makeReplaceDaySchedule(java.lang.String)</function-signature>
+    <example>
+ 
+     ${ u:makeReplaceDaySchedule('2012-10-25 17:11:39.0') }
+    </example>  
+  </function>  
+
+  
+  <function>
+    <description>make replace time schedule </description>
+    <name>makeReplaceTimeSchedule</name>
+    <function-class>crawler.mobile.common.util.StringUtil</function-class>
+    <function-signature>String makeReplaceTimeSchedule(java.lang.String)</function-signature>
+    <example>
+ 
+     ${ u:makeReplaceTimeSchedule('2012-10-25 17:11:39.0') }
+    </example>  
+  </function>  
+  
+   <function>
+    <description>make String length format</description>
+    <name>cutStringByLength</name>
+    <function-class>crawler.mobile.common.util.StringUtil</function-class>
+    <function-signature>String cutStringByLength(java.lang.String, int)</function-signature>
+    <example>
+ 
+     ${ u:cutStringByLength('무궁화꽃이피었습니다', 40) }
+    </example>  
+  </function>
+  
+   <function>
+    <description>make replaceNull format</description>
+    <name>replaceNull</name>
+    <function-class>crawler.mobile.common.util.StringUtil</function-class>
+    <function-signature>String replaceNull(java.lang.String, java.lang.String)</function-signature>
+    <example>
+ 
+     ${ u:replaceNull('변환전', '변환후') }
+    </example>  
+  </function>
+  
+   <function>
+    <description>문자 길이 조절 포멧 변환</description>
+    <name>cutStringByLength01</name>
+    <function-class>crawler.mobile.common.util.StringUtil</function-class>
+    <function-signature>String cutStringByLength01(java.lang.String, int, int )</function-signature>
+    <example>
+ 
+     ${ u:cutStringByLength01("1234567890",4, 6) }
+    </example>  
+  </function>  
+</taglib>

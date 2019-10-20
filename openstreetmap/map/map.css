@@ -1,0 +1,164 @@
+
+		#confirm {
+            display: none;
+            border: 1px solid #aaa;
+            position: fixed;
+            width: 50%;
+            left: 25%;
+            top: 40%;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: white;
+            border-radius: 15px;
+            overflow:hidden;
+			height:auto;
+         }
+         
+          /*  @media only screen and (min-device-width : 320px) and (max-device-width: 568px) {
+			#reload_div{
+				top : 50%;
+			}
+		 }
+		 
+		 @media only screen and (min-device-width : 360px) and (max-device-width: 640px) {
+			#reload-div{
+				top : 50%;
+			}
+		 }
+		 
+		 @media only screen and (min-device-width : 375px) and (max-device-width: 667px) {
+			#reload-div{
+				top : 50%;
+			}
+		 }   */
+		 
+         
+         #confirm button {
+            background-color: #999;
+            display: inline-block;
+            border-radius: 5px;
+            border: 1px solid #aaa;
+            padding: 5px;
+            text-align: middle;
+            width: 30%;
+            cursor: pointer;
+            color: #ffffff;
+		    left: 42%;
+         }
+         #confirm .message {
+            text-align: center;
+         }
+         
+         #n-confirm {
+            display: none;
+            border: 1px solid #aaa;
+            position: fixed;
+            width: 50%;
+            left: 25%;
+            top: 40%;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: white;
+            border-radius: 15px;
+            overflow:hidden;
+			height:auto;
+         }
+         #n-confirm button {
+            background-color: #999;
+            display: inline-block;
+            border-radius: 5px;
+            border: 1px solid #aaa;
+            padding: 5px;
+            text-align: middle;
+            width: 30%;
+            cursor: pointer;
+            color: #ffffff;
+		    left: 42%;
+         }
+         #n-confirm .message {
+            text-align: center;
+         }
+         
+         #tap_panel::after {
+			 content: '';
+			 dispaly: block;
+			 clear: both; 
+		 }
+		
+		#tap_panel {
+		    width: 100%;
+		}
+		#tap_panel ul.tab li {
+		    display: block;
+		    background: white;
+		    width: 50%;
+		    float: left;
+		    border-bottom: 1px solid #e1e1e1;
+		}
+		#tap_panel ul.tab li a {
+			background: #fff;
+		    color: #454545;
+		    cursor: default;
+		    font-size: 1.0em;
+		    line-height: 3em;
+		    display: block;
+		    font-weight: bold;
+		    text-align: center;
+		}
+		#tap_panel ul.tab li a.selected {
+		    background: #50C2FF;
+		    color: #ffffff;
+		    cursor: default;
+		    font-size: 1.0em;
+		    line-height: 3em;
+		    display: block;
+		    font-weight: bold;
+		    text-align: center;
+		}
+		ul.tab {
+			border-bottom:1px solid #e1e1e1;
+		}
+		
+		#tap_panel ul.tab li {
+		    font-size: 1.2em;
+		}
+         
+        .consumer_address button#my-iqr {
+			background-color: #ffffff;
+		    background-repeat:no-repeat;
+		    cursor:pointer;
+		    overflow: hidden;
+		    outline:none;
+			font-size:0.9em;
+			border:1px solid #ffffff;
+			color:#50C2FF;
+			border-radius:8px;
+		} 
+		
+		.consumer_address2 button#my-iqr {
+			background-color: #50C2FF;
+		    background-repeat:no-repeat;
+		    cursor:pointer;
+		    overflow: hidden;
+		    outline:none;
+			font-size:0.9em;
+			border:1px solid #50C2FF;
+			color:#ffffff;
+			border-radius:8px;
+		}
+		
+		.confirm_title1{
+			background-color: #50C2FF;
+			color: #ffffff;
+		    border-top-left-radius: 13px;
+		    border-top-right-radius: 13px;
+		    margin-bottom: 0px;
+		}
+		
+		.confirm_title2{
+			background-color: #ff6666;
+			color: #ffffff;
+		    border-top-left-radius: 13px;
+		    border-top-right-radius: 13px;
+		    margin-bottom: 0px;
+		}
